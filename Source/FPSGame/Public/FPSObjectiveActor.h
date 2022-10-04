@@ -34,8 +34,6 @@ protected:
 	void OnOverlapCosmetics() const;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	// Love this! Just used to notify this actor when it overlaps with something
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;

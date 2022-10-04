@@ -3,6 +3,7 @@
 
 #include "FPSObjectiveActor.h"
 
+#include "FPSCharacter.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -10,7 +11,7 @@
 AFPSObjectiveActor::AFPSObjectiveActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
@@ -40,18 +41,17 @@ void AFPSObjectiveActor::OnOverlapCosmetics() const
 	}
 }
 
-// Called every frame
-void AFPSObjectiveActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
 	// Once our actor overlaps with another actor, we just fire our cosmetic logic
 	OnOverlapCosmetics();
+
+	if (AFPSCharacter* Character = Cast<AFPSCharacter>(OtherActor))
+	{
+		Character->bIsCarryingObjective = true;
+		Destroy();
+	}
 }
 
