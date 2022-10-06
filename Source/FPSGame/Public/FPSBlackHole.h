@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PhysicsEngine/RadialForceComponent.h"
 #include "FPSBlackHole.generated.h"
 
 class USphereComponent;
+class URadialForceComponent;
 
 UCLASS()
 class FPSGAME_API AFPSBlackHole : public AActor
