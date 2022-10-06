@@ -24,6 +24,7 @@ AFPSBlackHole::AFPSBlackHole()
 	SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComponent->SetCollisionResponseToAllChannels(ECR_Overlap);
 
+	RadialForceComponent->Radius = 1200.0f;
 	RadialForceComponent->ImpulseStrength = -10000.0f;
 	RadialForceComponent->ForceStrength = 60.0f;
 }
