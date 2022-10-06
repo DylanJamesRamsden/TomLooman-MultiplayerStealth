@@ -4,8 +4,10 @@
 #include "FPSExtractionZone.h"
 
 #include "FPSCharacter.h"
+#include "FPSGameMode.h"
 #include "Components/BoxComponent.h"
 #include "Components/DecalComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFPSExtractionZone::AFPSExtractionZone()
@@ -45,11 +47,22 @@ void AFPSExtractionZone::NotifyActorBeginOverlap(AActor* OtherActor)
 	{
 		if (Character->bIsCarryingObjective)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("You win!!"));
+			if (AFPSGameMode* GM = GetWorld()->GetAuthGameMode<AFPSGameMode>())
+			{
+				GM->CompleteMission(Character);
+
+				if (ObjectiveObtainedSound)
+				{
+					UGameplayStatics::PlaySound2D(GetWorld(), ObjectiveObtainedSound);
+				}
+			}
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Not carrying objective!!"));
+			if (ObjectiveMissingSound)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), ObjectiveMissingSound);
+			}
 		}
 	}
 }

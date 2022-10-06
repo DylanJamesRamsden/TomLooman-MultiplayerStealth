@@ -24,6 +24,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UDecalComponent* DecalComponent;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ObjectiveMissingSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ObjectiveObtainedSound;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
